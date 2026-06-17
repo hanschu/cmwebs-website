@@ -1,82 +1,115 @@
 (() => {
   'use strict';
 
-  const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, min = 0, max = 1) => Math.min(max, Math.max(min, v));
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const coarsePointer = window.matchMedia('(hover: none), (pointer: coarse)').matches;
   const nav = document.getElementById('topNav');
   const menu = document.querySelector('.p-menu');
   const navInner = document.querySelector('.p-nav__inner');
 
   menu?.addEventListener('click', () => {
-    const open = navInner.classList.toggle('is-open');
-    menu.setAttribute('aria-expanded', String(open));
+    const open = navInner?.classList.toggle('is-open');
+    menu.setAttribute('aria-expanded', String(Boolean(open)));
   });
 
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) entry.target.classList.add('is-visible');
-    });
-  }, { threshold: 0.18 });
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    }
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
   document.querySelectorAll('[data-reveal]').forEach((el) => revealObserver.observe(el));
 
-  const stories = [...document.querySelectorAll('[data-story]')];
-  let ticking = false;
+  const scenes = [...document.querySelectorAll('[data-story]')].map((section) => ({
+    section,
+    core: section.querySelector('.p-core'),
+    donut: section.querySelector('.p-donut'),
+    contractPhone: section.querySelector('.p-contract-phone')
+  }));
 
-  function updateScrollScenes() {
+  let rafId = 0;
+  let lastY = -1;
+
+  function render() {
+    rafId = 0;
     const y = window.scrollY;
+    if (y === lastY) return;
+    lastY = y;
     nav?.classList.toggle('is-scrolled', y > 20);
 
-    stories.forEach((section) => {
-      const rect = section.getBoundingClientRect();
-      const scrollable = Math.max(1, section.offsetHeight - window.innerHeight);
+    const viewportH = window.innerHeight;
+    for (const scene of scenes) {
+      const rect = scene.section.getBoundingClientRect();
+      if (rect.bottom < -120 || rect.top > viewportH + 120) continue;
+
+      const scrollable = Math.max(1, scene.section.offsetHeight - viewportH);
       const progress = clamp(-rect.top / scrollable);
       const stage = progress < 0.28 ? 0 : progress < 0.5 ? 1 : progress < 0.72 ? 2 : 3;
-      section.style.setProperty('--story-progress', progress.toFixed(4));
-      section.dataset.stage = String(stage);
+      scene.section.dataset.stage = String(stage);
 
-      if (!reduceMotion) {
-        const core = section.querySelector('.p-core');
-        const donut = section.querySelector('.p-donut');
-        const contractPhone = section.querySelector('.p-contract-phone');
-        if (core) core.style.transform = `rotateX(${58 - progress * 8}deg) rotateZ(${-7 + progress * 10}deg) translateY(${(0.5 - progress) * 20}px)`;
-        if (donut) donut.style.transform = `rotateX(${12 - progress * 8}deg) rotateZ(${progress * 14}deg) scale(${0.78 + progress * 0.22})`;
-        if (contractPhone) contractPhone.style.transform = `rotateY(${18 - progress * 15}deg) rotateZ(${-7 + progress * 8}deg) scale(${0.86 + progress * 0.12})`;
+      if (!reducedMotion) {
+        if (scene.core) {
+          scene.core.style.transform = `rotateX(${56 - progress * 5}deg) rotateZ(${-5 + progress * 7}deg) translate3d(0,${(0.5 - progress) * 12}px,0)`;
+        }
+        if (scene.donut) {
+          scene.donut.style.transform = `rotateX(${8 - progress * 4}deg) rotateZ(${progress * 8}deg) scale(${0.86 + progress * 0.14})`;
+        }
+        if (scene.contractPhone) {
+          scene.contractPhone.style.transform = `rotateY(${9 - progress * 7}deg) rotateZ(${-3 + progress * 4}deg) scale(${0.92 + progress * 0.07})`;
+        }
       }
-    });
-
-    ticking = false;
-  }
-
-  function requestUpdate() {
-    if (!ticking) {
-      requestAnimationFrame(updateScrollScenes);
-      ticking = true;
     }
   }
 
-  window.addEventListener('scroll', requestUpdate, { passive: true });
-  window.addEventListener('resize', requestUpdate);
-  updateScrollScenes();
+  function scheduleRender() {
+    if (!rafId) rafId = requestAnimationFrame(render);
+  }
 
-  if (!reduceMotion) {
+  window.addEventListener('scroll', scheduleRender, { passive: true });
+  window.addEventListener('resize', () => {
+    lastY = -1;
+    scheduleRender();
+  }, { passive: true });
+  scheduleRender();
+
+  if (!reducedMotion && !coarsePointer) {
     const tilt = document.querySelector('[data-tilt]');
     const hero = document.querySelector('.p-hero__visual');
+    let tiltRaf = 0;
+    let pointerX = 0;
+    let pointerY = 0;
+
+    const renderTilt = () => {
+      tiltRaf = 0;
+      if (!tilt) return;
+      tilt.style.transform = `rotateY(${-5 + pointerX * 5}deg) rotateX(${-pointerY * 3}deg) rotateZ(${2 + pointerX}deg) translate3d(0,${pointerY * 4}px,0)`;
+    };
+
     hero?.addEventListener('pointermove', (event) => {
       const rect = hero.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
-      tilt.style.transform = `rotateY(${-10 + x * 13}deg) rotateX(${-y * 8}deg) rotateZ(${4 + x * 2}deg) translateY(${y * 8}px)`;
-    });
+      pointerX = (event.clientX - rect.left) / rect.width - 0.5;
+      pointerY = (event.clientY - rect.top) / rect.height - 0.5;
+      if (!tiltRaf) tiltRaf = requestAnimationFrame(renderTilt);
+    }, { passive: true });
+
     hero?.addEventListener('pointerleave', () => {
-      tilt.style.transform = 'rotateY(-10deg) rotateZ(4deg) translateY(6px)';
+      pointerX = 0;
+      pointerY = 0;
+      if (!tiltRaf) tiltRaf = requestAnimationFrame(renderTilt);
     });
 
     document.querySelectorAll('[data-float]').forEach((card, index) => {
-      card.animate([
-        { translate: '0 0' },
-        { translate: `0 ${index % 2 ? -13 : 13}px` },
-        { translate: '0 0' }
-      ], { duration: 4200 + index * 800, iterations: Infinity, easing: 'ease-in-out' });
+      card.animate(
+        [
+          { transform: 'translate3d(0,0,0)' },
+          { transform: `translate3d(0,${index % 2 ? -7 : 7}px,0)` },
+          { transform: 'translate3d(0,0,0)' }
+        ],
+        { duration: 5200 + index * 700, iterations: Infinity, easing: 'ease-in-out' }
+      );
     });
   }
 })();
