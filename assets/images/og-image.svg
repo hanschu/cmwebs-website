@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#061f4f"/><stop offset=".55" stop-color="#063b78"/><stop offset="1" stop-color="#00bed2"/></linearGradient></defs>
+<rect width="1200" height="630" rx="0" fill="url(#g)"/>
+<circle cx="1040" cy="90" r="230" fill="#fff" opacity=".07"/><circle cx="1040" cy="90" r="140" fill="#fff" opacity=".07"/>
+<g transform="translate(80 80)"><rect width="110" height="110" rx="28" fill="#fff"/><path d="M22 58 55 28l33 30v29H66V65H44v22H22z" fill="none" stroke="#063b78" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="78" cy="45" r="6" fill="#00bed2"/></g>
+<text x="220" y="145" fill="#fff" font-family="Arial, sans-serif" font-size="72" font-weight="800">CMWebs</text>
+<text x="82" y="290" fill="#fff" font-family="Arial, sans-serif" font-size="66" font-weight="800">LINE 智能租管系統</text>
+<text x="82" y="385" fill="#c9f7fb" font-family="Arial, sans-serif" font-size="38">自動計算帳單・租金對帳・催繳・續約追蹤</text>
+<rect x="82" y="455" width="420" height="84" rx="22" fill="#06c755"/><text x="128" y="511" fill="#fff" font-family="Arial, sans-serif" font-size="32" font-weight="700">30 天免費體驗</text>
+</svg>

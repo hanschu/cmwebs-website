@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://cmwebs.com/sitemap.xml
