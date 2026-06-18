@@ -15,3 +15,36 @@ function updateAddressRisk(){const all=[...document.querySelectorAll('[data-risk
 function updateRentalRisk(){const all=[...document.querySelectorAll('[data-rental-risk]')];let score=100;all.forEach(x=>{if(x.checked)score-=Number(x.dataset.weight||8)});score=Math.max(0,score);if($('rentalScore'))$('rentalScore').textContent=score;if($('rentalBar'))$('rentalBar').style.width=score+'%';if($('rentalLevel'))$('rentalLevel').textContent=score>=80?'資料完整度良好':score>=60?'仍有項目需要確認':'簽約前應提高警覺'}
 function updateCredit(){const all=[...document.querySelectorAll('[data-credit]')];let score=0;let max=0;all.forEach(x=>{const w=Number(x.dataset.weight||10);max+=w;if(x.checked)score+=w});const pct=max?Math.round(score/max*100):0;const final=500+Math.round(pct*3.5);if($('creditScore'))$('creditScore').textContent=final;if($('creditRing'))$('creditRing').style.background=`conic-gradient(${final>=780?'#06c755':final>=650?'#ff9a00':'#e44747'} ${(final-500)/350*360}deg,#dce8ef 0deg)`;if($('creditLevel'))$('creditLevel').textContent=final>=780?'履約資料完整':final>=650?'仍可補強紀錄':'資料不足';}
 document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('[data-current-year]').forEach(x=>x.textContent=new Date().getFullYear());if($('date')&&!$('date').value)$('date').value=new Date().toISOString().slice(0,10);if($('price'))calcROI();if($('receiptText'))makeReceipt();if($('noticeText'))lateNotice();if($('handoverText'))handoverText();updateChecklist();updateAddressRisk();updateRentalRisk();updateCredit()});
+
+
+// Lightweight entrance animations for internal pages. Content remains visible if JS is unavailable.
+document.addEventListener('DOMContentLoaded',()=>{
+  if(document.body.classList.contains('premium-home')) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.body.classList.add('page-motion');
+  const selectors=[
+    '.section-title', '.content > h2', '.content > h3', '.content > p', '.content > .notice',
+    '.feature-card', '.service-card', '.tool-card', '.article-card', '.price-card', '.panel',
+    '.step', '.split > *', '.gallery > *', '.faq-item', '.cta-banner', '.result-row', '.checkitem'
+  ];
+  const items=[...document.querySelectorAll(selectors.join(','))];
+  const seen=new Set();
+  const unique=items.filter(el=>{if(seen.has(el))return false;seen.add(el);return true});
+  unique.forEach((el,index)=>{
+    el.classList.add('motion-item');
+    const parent=el.parentElement;
+    const siblings=parent?[...parent.children].filter(x=>unique.includes(x)):[];
+    const local=Math.max(0,siblings.indexOf(el));
+    el.style.setProperty('--motion-delay',`${Math.min(local,5)*85}ms`);
+    if(el.matches('.split > :first-child')) el.classList.add('motion-left');
+    if(el.matches('.split > :last-child')) el.classList.add('motion-right');
+  });
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting)return;
+      entry.target.classList.add('motion-in');
+      io.unobserve(entry.target);
+    });
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  unique.forEach(el=>io.observe(el));
+});

@@ -63,12 +63,11 @@
     const fi = Math.min(frameCount - 1, Math.round(progress * (frameCount - 1)));
     if (fi !== lastFrame && frames[fi]?.complete) { drawCover(frames[fi]); lastFrame = fi; }
 
-    const copyIn = ease(range(progress, .02, .20));
+    // The core headline is visible on first paint. Scrolling only moves it out later.
     const copyOut = 1 - ease(range(progress, .70, .88));
-    const copyOpacity = copyIn * copyOut;
     if (copy) {
-      copy.style.opacity = copyOpacity.toFixed(3);
-      copy.style.transform = `translate3d(0,${(1-copyIn)*56 - (1-copyOut)*28}px,0)`;
+      copy.style.opacity = copyOut.toFixed(3);
+      copy.style.transform = `translate3d(0,${-(1-copyOut)*28}px,0)`;
     }
     const noticeIn = ease(range(progress, .30, .56));
     const noticeOut = 1 - ease(range(progress, .78, .96));
