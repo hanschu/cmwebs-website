@@ -5,115 +5,107 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>CMWebs 智能租管系統｜讓收租變得更輕</title>
   <meta name="description" content="CMWebs 是建立在 LINE 上的智能租管系統，自動處理租金對帳、催繳、租約追蹤與營運報表。">
-  <meta name="theme-color" content="#071f48">
+  <meta name="theme-color" content="#f4f8ff">
   <link rel="canonical" href="https://cmwebs.com/">
   <link rel="icon" href="/assets/images/logo-mark.png">
   <link rel="stylesheet" href="/assets/css/styles.css">
   <link rel="stylesheet" href="/assets/css/premium-home.css">
   <link rel="preload" as="image" href="/assets/images/hero-landlord.webp">
 </head>
-<body class="cinema-home">
+<body class="premium-home">
 <a class="skip" href="#main">跳至主要內容</a>
-<header class="cinema-nav" id="topNav">
-  <div class="cinema-nav__inner">
-    <a class="cinema-brand" href="/" aria-label="CMWebs 首頁">
-      <span class="cinema-brand__mark"><img src="/assets/images/logo-mark.png" alt="CMWebs 標誌" width="36" height="36"></span>
-      <strong>CMWebs</strong>
+<header class="p-nav" id="topNav">
+  <div class="p-nav__inner">
+    <a class="p-brand" href="/" aria-label="CMWebs 首頁">
+      <img src="/assets/images/logo-mark.png" width="42" height="42" alt="CMWebs 標誌">
+      <span>CMWebs</span>
     </a>
-    <nav class="cinema-nav__links" aria-label="主要導覽">
-      <a href="/features/">功能特色</a>
-      <a href="/how-it-works/">使用方式</a>
-      <a href="/pricing/">價格方案</a>
-      <a href="/tools/">房東工具</a>
+    <nav class="p-nav__links" aria-label="主要導覽">
+      <a href="/features/">功能特色</a><a href="/how-it-works/">使用方式</a><a href="/pricing/">價格方案</a><a href="/tools/">房東工具</a>
     </nav>
-    <a class="cinema-line cinema-line--small" href="https://line.me/R/ti/p/@cmwebs" target="_blank" rel="noopener">加入 LINE</a>
-    <button class="cinema-menu" type="button" aria-label="開啟選單" aria-expanded="false">選單</button>
+    <a class="p-line-button p-line-button--small" href="https://line.me/R/ti/p/@cmwebs" target="_blank" rel="noopener"><span class="p-line-dot">LINE</span>加入 LINE</a>
+    <button class="p-menu" type="button" aria-label="開啟選單" aria-expanded="false">☰</button>
   </div>
 </header>
-
 <main id="main">
-  <section class="film-scene film-scene--hero" data-film-scene>
-    <div class="film-sticky">
-      <div class="film-bg" aria-hidden="true"></div>
-      <div class="film-shade" aria-hidden="true"></div>
-      <div class="film-content film-content--left">
-        <p class="film-kicker film-step" data-at="0.05">在 LINE 上運作</p>
-        <h1 class="film-title film-step" data-at="0.12">租金入帳，<br><span>自動完成。</span></h1>
-        <p class="film-lead film-step" data-at="0.28">房東只看結果，系統處理流程。</p>
-        <div class="film-actions film-step" data-at="0.40">
-          <a class="cinema-line" href="https://line.me/R/ti/p/@cmwebs" target="_blank" rel="noopener">加入 LINE 免費體驗</a>
-          <a class="cinema-ghost" href="#scene-features">了解如何運作</a>
+  <section class="scene scene--hero" id="hero">
+    <div class="scene__bg scene__bg--hero" aria-hidden="true"></div>
+    <div class="scene__wash" aria-hidden="true"></div>
+    <div class="scene__inner hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow reveal" data-delay="0">在 LINE 上運作的智能租管系統</p>
+        <h1 class="reveal" data-delay="1">租金入帳，<br><span>自動完成。</span></h1>
+        <p class="hero-sub reveal" data-delay="2">免下載 App，房東一手掌握收租與管理。</p>
+        <div class="hero-actions reveal" data-delay="3">
+          <a class="p-line-button" href="https://line.me/R/ti/p/@cmwebs" target="_blank" rel="noopener"><span class="p-line-dot">LINE</span>加入 LINE 免費體驗</a>
+          <a class="secondary-button" href="#features">查看功能</a>
         </div>
       </div>
-      <aside class="pay-card film-step" data-at="0.35" aria-label="租金入帳通知示意">
-        <div class="pay-card__top"><span>CMWebs 租屋管理</span><small>現在</small></div>
-        <div class="pay-card__status"><i>✓</i><div><small>租金已入帳</small><strong>NT$ 28,000</strong></div></div>
+      <div class="hero-notification reveal" data-delay="4" aria-label="租金入帳通知示意">
+        <div class="notification-head"><span class="line-chip">LINE</span><b>CMWebs 租屋管理</b><small>現在</small></div>
+        <div class="notification-body">
+          <span class="check-circle">✓</span>
+          <div><small>租金已入帳</small><strong>NT$ 28,000</strong></div>
+        </div>
         <dl><div><dt>房客</dt><dd>王小明</dd></div><div><dt>帳務日期</dt><dd>2024/06/01</dd></div></dl>
-        <b>自動對帳完成</b>
-      </aside>
-      <div class="film-scroll">SCROLL <span></span></div>
-      <div class="scene-index">01</div>
+        <span class="success-tag">自動對帳完成</span>
+      </div>
+    </div>
+    <a class="scroll-cue" href="#features"><span></span>向下滑動</a>
+  </section>
+
+  <section class="scene scene--features" id="features">
+    <div class="scene__bg scene__bg--features" aria-hidden="true"></div>
+    <div class="scene__wash scene__wash--right" aria-hidden="true"></div>
+    <div class="scene__inner feature-layout">
+      <div class="section-copy">
+        <p class="eyebrow reveal">核心功能</p>
+        <h2 class="reveal" data-delay="1">三個重點，<br>讓管理更簡單。</h2>
+      </div>
+      <div class="feature-stack">
+        <article class="feature-card reveal" data-delay="1"><span class="feature-icon feature-icon--green">LINE</span><div><h3>即時通知</h3><p>租金入帳，秒通知。</p></div></article>
+        <article class="feature-card reveal" data-delay="2"><span class="feature-icon feature-icon--blue">✓</span><div><h3>自動銷帳</h3><p>匯款完成，自動更新。</p></div></article>
+        <article class="feature-card reveal" data-delay="3"><span class="feature-icon feature-icon--orange">▥</span><div><h3>數據儀表板</h3><p>營收與空房，一眼掌握。</p></div></article>
+      </div>
     </div>
   </section>
 
-  <section class="film-scene film-scene--features" id="scene-features" data-film-scene>
-    <div class="film-sticky">
-      <div class="film-bg" aria-hidden="true"></div>
-      <div class="film-shade" aria-hidden="true"></div>
-      <div class="film-content film-content--right film-content--light">
-        <p class="film-kicker film-step" data-at="0.08">不只是通知</p>
-        <h2 class="film-title film-step" data-at="0.15">三個動作，<br>整段自動化。</h2>
-        <p class="film-lead film-step" data-at="0.28">付款、核對、銷帳，依序完成。</p>
+  <section class="scene scene--dashboard" id="dashboard">
+    <div class="scene__bg scene__bg--dashboard" aria-hidden="true"></div>
+    <div class="scene__wash" aria-hidden="true"></div>
+    <div class="scene__inner dashboard-grid">
+      <div class="section-copy section-copy--dashboard">
+        <p class="eyebrow reveal">即時營運視角</p>
+        <h2 class="reveal" data-delay="1">所有收租，<br>一眼掌握。</h2>
+        <p class="section-sub reveal" data-delay="2">收入、待繳與逾期狀態，隨時更新。</p>
       </div>
-      <div class="feature-steps">
-        <article class="feature-pill film-step" data-at="0.34"><span>01</span><div><b>即時通知</b><small>租金入帳，秒通知</small></div></article>
-        <article class="feature-pill film-step" data-at="0.48"><span>02</span><div><b>自動核對</b><small>金額與房客資料自動比對</small></div></article>
-        <article class="feature-pill film-step" data-at="0.62"><span>03</span><div><b>完成銷帳</b><small>帳務紀錄即時更新</small></div></article>
+      <div class="dashboard-stage reveal" data-delay="2">
+        <div class="donut-card">
+          <div class="donut-ring"><div class="donut-center"><small>本月收款總額</small><strong data-count="280000">NT$ 280,000</strong><span>已入帳 28 筆 ✓</span></div></div>
+        </div>
+        <article class="metric-card metric-card--chart"><small>收款走勢</small><svg viewBox="0 0 220 80" aria-hidden="true"><path class="chart-line" d="M5 68 C35 60 48 35 74 45 S116 23 140 35 S178 15 215 9"/><circle cx="215" cy="9" r="6"/></svg></article>
+        <article class="metric-card metric-card--pending"><small>待繳提醒</small><strong>12 <em>筆</em></strong></article>
+        <article class="metric-card metric-card--late"><small>逾期提醒</small><strong>3 <em>筆</em></strong></article>
+        <article class="metric-card metric-card--rate"><small>租金入帳率</small><strong>96<em>%</em></strong><span class="rate-line"><b></b></span></article>
       </div>
-      <div class="scene-index">02</div>
     </div>
   </section>
 
-  <section class="film-scene film-scene--dashboard" data-film-scene>
-    <div class="film-sticky">
-      <div class="film-bg" aria-hidden="true"></div>
-      <div class="film-shade" aria-hidden="true"></div>
-      <div class="film-content film-content--left">
-        <p class="film-kicker film-step" data-at="0.06">即時營運視角</p>
-        <h2 class="film-title film-step" data-at="0.14">所有收租，<br>一眼掌握。</h2>
-        <p class="film-lead film-step" data-at="0.28">收入、待繳與逾期狀態，隨時更新。</p>
+  <section class="scene scene--trial" id="trial">
+    <div class="scene__bg scene__bg--trial" aria-hidden="true"></div>
+    <div class="scene__wash scene__wash--dark" aria-hidden="true"></div>
+    <div class="scene__inner trial-grid">
+      <div class="trial-copy">
+        <p class="eyebrow eyebrow--light reveal">現在開始</p>
+        <h2 class="reveal" data-delay="1">30 天免費體驗，<br>現在就開始。</h2>
+        <p class="reveal" data-delay="2">免下載 App，LINE 即可使用。</p>
+        <a class="p-line-button reveal" data-delay="3" href="https://line.me/R/ti/p/@cmwebs" target="_blank" rel="noopener"><span class="p-line-dot">LINE</span>加入 LINE 免費體驗</a>
       </div>
-      <div class="data-stage film-step" data-at="0.28">
-        <div class="data-ring"><div><small>本月收款總額</small><strong>NT$ 280,000</strong><span>已入帳 28 筆 ✓</span></div></div>
-        <article class="data-card data-card--trend film-step" data-at="0.42"><small>收款走勢</small><svg viewBox="0 0 220 90" aria-hidden="true"><path d="M6 72 C35 67 42 42 69 48 S112 27 140 37 S180 18 214 10"/><circle cx="214" cy="10" r="5"/></svg></article>
-        <article class="data-card data-card--pending film-step" data-at="0.50"><small>待繳提醒</small><strong>12 <em>筆</em></strong></article>
-        <article class="data-card data-card--late film-step" data-at="0.58"><small>逾期提醒</small><strong>3 <em>筆</em></strong></article>
-        <article class="data-card data-card--rate film-step" data-at="0.66"><small>租金入帳率</small><strong>96<em>%</em></strong></article>
-      </div>
-      <div class="scene-index">03</div>
-    </div>
-  </section>
-
-  <section class="film-scene film-scene--trial" data-film-scene>
-    <div class="film-sticky">
-      <div class="film-bg" aria-hidden="true"></div>
-      <div class="film-shade" aria-hidden="true"></div>
-      <div class="film-content film-content--left film-content--light">
-        <p class="film-kicker film-step" data-at="0.08">現在開始</p>
-        <h2 class="film-title film-step" data-at="0.16">30 天免費體驗。</h2>
-        <p class="film-lead film-step" data-at="0.28">免下載 App，LINE 即可使用。</p>
-        <div class="film-actions film-step" data-at="0.40"><a class="cinema-line" href="https://line.me/R/ti/p/@cmwebs" target="_blank" rel="noopener">加入 LINE 免費體驗</a></div>
-      </div>
-      <div class="trial-orb film-step" data-at="0.36"><span>30</span><b>天</b><small>完整功能</small></div>
-      <div class="scene-index">04</div>
+      <div class="trial-badge reveal" data-delay="4"><span>30</span><b>天</b><small>完整功能</small></div>
     </div>
   </section>
 </main>
-
-<footer class="cinema-footer">
-  <div><a class="cinema-brand" href="/"><span class="cinema-brand__mark"><img src="/assets/images/logo-mark.png" alt="" width="30" height="30"></span><strong>CMWebs</strong></a><span>© <span data-current-year></span> CMWebs</span></div>
-  <nav><a href="/privacy/">隱私權</a><a href="/terms/">服務條款</a><a href="/faq/">常見問題</a></nav>
-</footer>
+<footer class="p-footer"><div><a class="p-brand" href="/"><img src="/assets/images/logo-mark.png" width="34" height="34" alt=""><span>CMWebs</span></a><span>© <span data-current-year></span> CMWebs</span></div><nav><a href="/privacy/">隱私權</a><a href="/terms/">服務條款</a><a href="/faq/">常見問題</a></nav></footer>
 <script src="/assets/js/site.js" defer></script>
 <script src="/assets/js/premium-home.js" defer></script>
 </body>
