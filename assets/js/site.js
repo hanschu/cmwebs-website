@@ -17,34 +17,61 @@ function updateCredit(){const all=[...document.querySelectorAll('[data-credit]')
 document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('[data-current-year]').forEach(x=>x.textContent=new Date().getFullYear());if($('date')&&!$('date').value)$('date').value=new Date().toISOString().slice(0,10);if($('price'))calcROI();if($('receiptText'))makeReceipt();if($('noticeText'))lateNotice();if($('handoverText'))handoverText();updateChecklist();updateAddressRisk();updateRentalRisk();updateCredit()});
 
 
-// Lightweight entrance animations for internal pages. Content remains visible if JS is unavailable.
-document.addEventListener('DOMContentLoaded',()=>{
-  if(document.body.classList.contains('premium-home')) return;
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  document.body.classList.add('page-motion');
-  const selectors=[
-    '.section-title', '.content > h2', '.content > h3', '.content > p', '.content > .notice',
-    '.feature-card', '.service-card', '.tool-card', '.article-card', '.price-card', '.panel',
-    '.step', '.split > *', '.gallery > *', '.faq-item', '.cta-banner', '.result-row', '.checkitem'
+// v7: inner-page scroll reveal animations
+(function(){
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) {
+    document.documentElement.classList.add('reduce-motion');
+    return;
+  }
+  const isPremiumHome = document.body && document.body.classList.contains('premium-home');
+  if (isPremiumHome) return;
+
+  const candidates = [
+    '.page-hero .breadcrumb',
+    '.page-hero .eyebrow',
+    '.page-hero h1',
+    '.page-hero p',
+    '.content > div > h2',
+    '.content > div > p',
+    '.content .notice',
+    '.content .cta-row',
+    '.card',
+    '.tool-card',
+    '.price-card',
+    '.faq-item',
+    '.gallery img',
+    '.section h2',
+    '.section .lead',
+    '.section .cta-row'
   ];
-  const items=[...document.querySelectorAll(selectors.join(','))];
-  const seen=new Set();
-  const unique=items.filter(el=>{if(seen.has(el))return false;seen.add(el);return true});
-  unique.forEach((el,index)=>{
-    el.classList.add('motion-item');
-    const parent=el.parentElement;
-    const siblings=parent?[...parent.children].filter(x=>unique.includes(x)):[];
-    const local=Math.max(0,siblings.indexOf(el));
-    el.style.setProperty('--motion-delay',`${Math.min(local,5)*85}ms`);
-    if(el.matches('.split > :first-child')) el.classList.add('motion-left');
-    if(el.matches('.split > :last-child')) el.classList.add('motion-right');
+
+  const targets = Array.from(document.querySelectorAll(candidates.join(',')))
+    .filter((el, index, arr) => arr.indexOf(el) === index);
+
+  if (!targets.length) return;
+  document.documentElement.classList.add('page-animate-ready');
+
+  targets.forEach((el, i) => {
+    el.classList.add('page-reveal');
+    el.dataset.pageDelay = String(Math.min(i % 4, 3));
   });
-  const io=new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      if(!entry.isIntersecting)return;
-      entry.target.classList.add('motion-in');
-      io.unobserve(entry.target);
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      obs.unobserve(entry.target);
     });
-  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
-  unique.forEach(el=>io.observe(el));
-});
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+  targets.forEach((el) => observer.observe(el));
+
+  // First viewport should never look empty: reveal above-the-fold elements immediately.
+  requestAnimationFrame(() => {
+    targets.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.9) el.classList.add('is-visible');
+    });
+  });
+})();

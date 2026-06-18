@@ -17,6 +17,7 @@
   const notice = hero?.querySelector('.hero-step--notification');
   const frameCount = Number(hero?.dataset.frameCount || 48);
   const frames = [];
+  hero?.classList.add('is-enhanced');
   let heroTicking = false;
   let lastFrame = -1;
 
@@ -41,14 +42,22 @@
   function loadFrames() {
     if (!hero || !canvas || !ctx || reducedMotion || !desktop) return;
     let loaded = 0;
+    let firstFrameReady = false;
     for (let i = 0; i < frameCount; i++) {
       const img = new Image();
       img.decoding = 'async';
       img.src = `/assets/images/hero-sequence/frame-${String(i).padStart(3, '0')}.webp`;
       img.onload = () => {
         loaded++;
-        if (i === 0) drawCover(img);
-        if (loaded >= Math.min(8, frameCount)) hero.classList.add('is-ready');
+        if (i === 0) {
+          firstFrameReady = true;
+          drawCover(img);
+          lastFrame = 0;
+        }
+        if (firstFrameReady && loaded >= Math.min(6, frameCount)) {
+          hero.classList.add('is-ready');
+          updateHero();
+        }
       };
       frames.push(img);
     }
@@ -63,13 +72,13 @@
     const fi = Math.min(frameCount - 1, Math.round(progress * (frameCount - 1)));
     if (fi !== lastFrame && frames[fi]?.complete) { drawCover(frames[fi]); lastFrame = fi; }
 
-    // The core headline is visible on first paint. Scrolling only moves it out later.
-    const copyOut = 1 - ease(range(progress, .70, .88));
+    const copyOut = ease(range(progress, .62, .86));
+    const copyOpacity = 1 - copyOut;
     if (copy) {
-      copy.style.opacity = copyOut.toFixed(3);
-      copy.style.transform = `translate3d(0,${-(1-copyOut)*28}px,0)`;
+      copy.style.opacity = copyOpacity.toFixed(3);
+      copy.style.transform = `translate3d(0,${-copyOut*32}px,0)`;
     }
-    const noticeIn = ease(range(progress, .30, .56));
+    const noticeIn = ease(range(progress, .18, .48));
     const noticeOut = 1 - ease(range(progress, .78, .96));
     const noticeOpacity = noticeIn * noticeOut;
     if (notice) {

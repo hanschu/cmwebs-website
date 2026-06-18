@@ -17,18 +17,25 @@
 /* Scroll-controlled cinematic hero */
 .hero-scroll{position:relative;height:220svh;background:#eef5ff;isolation:isolate}
 .hero-sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center;isolation:isolate}
-.hero-canvas,.hero-fallback{position:absolute;inset:0;width:100%;height:100%;z-index:-4}
-.hero-canvas{display:block;object-fit:cover;opacity:0;transition:opacity .45s ease}
-.hero-fallback{background:url('/assets/images/hero-landlord.webp') right 28% center/cover no-repeat;opacity:1;transition:opacity .45s ease}
+.hero-canvas,.hero-fallback{position:absolute;inset:0;width:100%;height:100%}
+.hero-fallback{z-index:-5;background:url('/assets/images/hero-landlord.webp') right 28% center/cover no-repeat;opacity:1;transform:scale(1.02);filter:saturate(1.02)}
+.hero-canvas{z-index:-4;display:block;object-fit:cover;opacity:0;transition:opacity .45s ease;background:transparent}
+.hero-scroll.is-ready .hero-canvas{opacity:1}
 .hero-cinematic-wash{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(247,250,255,.99) 0%,rgba(247,250,255,.93) 36%,rgba(247,250,255,.46) 67%,rgba(247,250,255,.08) 100%);pointer-events:none}
 .hero-scroll__inner{width:min(1320px,calc(100% - 64px));height:100%;margin:auto;position:relative;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:72px;padding:112px 0 62px}
 .hero-step{will-change:transform,opacity}
-.hero-step--copy{max-width:650px;opacity:1;transform:none}
+.hero-step--copy{max-width:650px;opacity:1;transform:translate3d(0,0,0)}
 .hero-step--notification{justify-self:end;opacity:0;transform:translate3d(70px,24px,0) scale(.94)}
-.hero-scroll.is-ready .hero-canvas{opacity:1}.hero-scroll.is-ready .hero-fallback{opacity:0}
-.hero-scroll:not(.is-ready) .hero-fallback{opacity:1}.hero-scroll:not(.is-ready) .hero-canvas{opacity:0}
+.hero-scroll.is-ready .hero-fallback{opacity:1}
+.hero-scroll:not(.is-ready) .hero-fallback{opacity:1}
 .hero-scroll .scroll-cue{opacity:1;transition:opacity .3s}
 .hero-scroll.is-past-intro .scroll-cue{opacity:0}
 @media(max-width:1000px){.hero-scroll{height:auto;min-height:100svh}.hero-sticky{position:relative;min-height:100svh;height:auto}.hero-canvas{display:none}.hero-fallback{opacity:1!important;background-position:62% center}.hero-cinematic-wash{background:linear-gradient(180deg,rgba(247,250,255,.98),rgba(247,250,255,.90) 54%,rgba(247,250,255,.35))}.hero-scroll__inner{grid-template-columns:1fr;width:calc(100% - 30px);padding:118px 0 84px}.hero-step--copy,.hero-step--notification{opacity:1!important;transform:none!important;text-align:center;margin:auto}.hero-actions{justify-content:center}.hero-step--notification{justify-self:center}.hero-scroll .scroll-cue{display:none}}
 @media(max-width:700px){.hero-scroll__inner{width:calc(100% - 28px);padding:100px 0 70px}.hero-step--copy h1{font-size:54px}.hero-step--notification{width:100%;max-width:420px}}
 @media(prefers-reduced-motion:reduce){.hero-scroll{height:auto;min-height:100svh}.hero-sticky{position:relative;min-height:100svh;height:auto}.hero-canvas{display:none}.hero-fallback{opacity:1!important}.hero-step--copy,.hero-step--notification{opacity:1!important;transform:none!important}}
+
+/* v7: no-blank first paint protection */
+.hero-scroll:not(.is-enhanced) .hero-step--copy{opacity:1!important;transform:none!important}
+.hero-scroll:not(.is-enhanced) .hero-fallback{opacity:1!important}
+.hero-scroll.is-enhanced .hero-step--copy{transition:opacity .2s linear,transform .2s linear}
+.hero-scroll.is-enhanced .hero-step--notification{transition:opacity .2s linear,transform .2s linear}
