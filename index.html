@@ -28,30 +28,33 @@
   </div>
 </header>
 <main id="main">
-  <section class="scene scene--hero" id="hero">
-    <div class="scene__bg scene__bg--hero" aria-hidden="true"></div>
-    <div class="scene__wash" aria-hidden="true"></div>
-    <div class="scene__inner hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow reveal" data-delay="0">在 LINE 上運作的智能租管系統</p>
-        <h1 class="reveal" data-delay="1">租金入帳，<br><span>自動完成。</span></h1>
-        <p class="hero-sub reveal" data-delay="2">免下載 App，房東一手掌握收租與管理。</p>
-        <div class="hero-actions reveal" data-delay="3">
-          <a class="p-line-button" href="https://line.me/R/ti/p/@cmwebs" target="_blank" rel="noopener"><span class="p-line-dot">LINE</span>加入 LINE 免費體驗</a>
-          <a class="secondary-button" href="#features">查看功能</a>
+  <section class="hero-scroll" id="hero" data-frame-count="48">
+    <div class="hero-sticky">
+      <canvas class="hero-canvas" width="1280" height="720" aria-hidden="true"></canvas>
+      <div class="hero-fallback" aria-hidden="true"></div>
+      <div class="hero-cinematic-wash" aria-hidden="true"></div>
+      <div class="hero-scroll__inner">
+        <div class="hero-copy hero-step hero-step--copy">
+          <p class="eyebrow">在 LINE 上運作的智能租管系統</p>
+          <h1>租金入帳，<br><span>自動完成。</span></h1>
+          <p class="hero-sub">免下載 App，房東一手掌握收租與管理。</p>
+          <div class="hero-actions">
+            <a class="p-line-button" href="https://line.me/R/ti/p/@cmwebs" target="_blank" rel="noopener"><span class="p-line-dot">LINE</span>加入 LINE 免費體驗</a>
+            <a class="secondary-button" href="#features">查看功能</a>
+          </div>
+        </div>
+        <div class="hero-notification hero-step hero-step--notification" aria-label="租金入帳通知示意">
+          <div class="notification-head"><span class="line-chip">LINE</span><b>CMWebs 租屋管理</b><small>現在</small></div>
+          <div class="notification-body">
+            <span class="check-circle">✓</span>
+            <div><small>租金已入帳</small><strong>NT$ 28,000</strong></div>
+          </div>
+          <dl><div><dt>房客</dt><dd>王小明</dd></div><div><dt>帳務日期</dt><dd>2024/06/01</dd></div></dl>
+          <span class="success-tag">自動對帳完成</span>
         </div>
       </div>
-      <div class="hero-notification reveal" data-delay="4" aria-label="租金入帳通知示意">
-        <div class="notification-head"><span class="line-chip">LINE</span><b>CMWebs 租屋管理</b><small>現在</small></div>
-        <div class="notification-body">
-          <span class="check-circle">✓</span>
-          <div><small>租金已入帳</small><strong>NT$ 28,000</strong></div>
-        </div>
-        <dl><div><dt>房客</dt><dd>王小明</dd></div><div><dt>帳務日期</dt><dd>2024/06/01</dd></div></dl>
-        <span class="success-tag">自動對帳完成</span>
-      </div>
+      <a class="scroll-cue" href="#features"><span></span>向下滑動</a>
     </div>
-    <a class="scroll-cue" href="#features"><span></span>向下滑動</a>
   </section>
 
   <section class="scene scene--features" id="features">
